@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bert-server
+  namespace: gecmarker
+  labels:
+    app: bert-server
+spec:
+  selector:
+    matchLabels:
+      app: bert-server
+  template:
+    metadata:
+      labels:
+        app: bert-server
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/fopure_images/bert-service
+        name: bert-server
+        ports:
+        - containerPort: 5555
+          name: port-in
+        - containerPort: 5556
+          name: port-out
+        volumeMounts:
+        - name: gecmarker-pvc
+          mountPath: /data
+      volumes:
+      - name: gecmarker-pvc
+        persistentVolumeClaim:
+          claimName: gecmarker-pvc
+      imagePullSecrets:
+      - name: fopure-dockers

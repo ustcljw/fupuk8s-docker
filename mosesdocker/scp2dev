@@ -1,0 +1,6 @@
+#!/bin/bash
+
+this_dir=$(cd $(dirname $0); pwd)
+echo $this_dir
+
+rsync -arzP $this_dir/Dockerfile zhuyaguang@fopure01:/data/fupuGecData/mosesdocker

@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+    name: test-redis
+    namespace: test-env
+    labels:
+        test-app: test-redis
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: test-redis
+    template:
+        metadata:
+            labels:
+                app: test-redis
+        spec:
+            containers:
+            - name: test-redis
+              image: redis:3.2.12
+              command: ["redis-server"]
+              args: ["--appendonly yes", "--requirepass fupu@redis_test"]
+              ports:
+              - containerPort: 6379
+            nodeSelector:
+                ecs-name: fopure00
+

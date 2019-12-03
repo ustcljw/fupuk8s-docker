@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zhu-service
+  namespace: gecmarker
+  labels:
+    app: zhu-service
+spec:
+  selector:
+    matchLabels:
+      app: zhu-service
+  template:
+    metadata:
+      labels:
+        app: zhu-service
+    spec:
+      containers:
+      - image: python
+        name: zhutest
+        env:
+        - name: BERT_SERVER_IP
+          value: bert-svc  #通过名称指向需要访问的bert，该名称与bert service的名称相对应。
+        command: ["python", "-m", "http.server"]

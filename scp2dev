@@ -1,0 +1,6 @@
+#!/bin/bash
+
+this_dir=$(cd $(dirname $0); pwd)
+echo $this_dir
+
+rsync -arzP --exclude ".idea" --exclude ".git" $this_dir zhuyaguang@fopure00:~/
